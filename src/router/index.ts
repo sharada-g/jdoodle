@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/leaderboard',
       name: 'leaderboard',
-      component: () => import('../views/CommingSoonView.vue')
+      component: () => import('../views/LeaderboardView.vue')
     },
     {
       path: '/about',

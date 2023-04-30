@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
-import HomeViewfrom from './HomeView.vue'
+import HomeView from './HomeView.vue'
 import HeroComp from '@/components/homeView/HeroComp.vue'
 import HowitworkComp from '@/components/homeView/howitwork/HowItWorkComp.vue'
 import TestimonialComp from '@/components/homeView/testimonial/TestimonialComp.vue'
 
-describe('ParentComponent.vue', () => {
-  const wrapper = shallowMount(HomeViewfrom)
+describe('HomeView.vue', () => {
+  const wrapper = shallowMount(HomeView)
 
   it('renders the HeroComp component', () => {
     expect(wrapper.findComponent(HeroComp).exists()).toBe(true)

@@ -5,7 +5,7 @@ import TestimonialComp from './TestimonialComp.vue'
 describe('TestimonialComp.vue', () => {
   const wrapper = shallowMount(TestimonialComp)
 
-  it('renders the hero section with titles and subtitles', () => {
+  it('renders the TestimonialComp with titles and subtitles', () => {
     expect(wrapper.find('.hero.is-small').exists()).toBe(true)
     expect(wrapper.find('.title.is-3').text()).toBe('What Our Users Are Saying')
     expect(wrapper.find('.subtitle.is-4').text()).toBe(
