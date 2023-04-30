@@ -2,7 +2,7 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item">
-        <img src="../assets/jDoodle_logo.png" width="100" height="32"
+        <img src="../assets/logo.png" width="50" height="32"
       /></router-link>
 
       <a

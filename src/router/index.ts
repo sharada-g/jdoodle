@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/challenges',
       name: 'challenges',
-      component: () => import('../views/CommingSoonView.vue')
+      component: () => import('../views/ChallengesView.vue')
     },
     {
       path: '/leaderboard',

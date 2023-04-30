@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest'
 
-describe('TableComp.spec', () => {
+describe('ChallengesComp.spec', () => {
   it.todo('should render the component with the correct props and chilhdren')
 })
