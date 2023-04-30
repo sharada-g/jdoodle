@@ -1,5 +1,3 @@
-// todo
-
 import { describe, it } from 'vitest'
 
 describe('StepsComp', () => {

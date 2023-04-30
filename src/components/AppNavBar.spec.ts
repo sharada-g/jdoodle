@@ -1,18 +1,20 @@
 import { describe, it, expect } from 'vitest'
-
 import { shallowMount } from '@vue/test-utils'
+import router from '@/router'
+
 import AppNavBar from '@/components/AppNavBar.vue'
 
 describe('Navbar.vue', () => {
+  const wrapper = shallowMount(AppNavBar, {
+    global: {
+      plugins: [router]
+    }
+  })
   it('renders the Navbar component', () => {
-    const wrapper = shallowMount(AppNavBar)
-
     expect(wrapper.find('.navbar').exists()).toBe(true)
   })
 
   it('renders router-links with correct href', () => {
-    const wrapper = shallowMount(AppNavBar)
-
     const challengesLink = wrapper.find('[to="/challenges"]')
     const leaderboardLink = wrapper.find('[to="/leaderboard"]')
     const aboutLink = wrapper.find('[to="/about"]')

@@ -40,14 +40,15 @@ import type { IStep } from '@/models/step.interface'
 const steps = ref<IStep[]>([])
 
 const fetchSteps = async () => {
-
-  await axiosBackendInstance.get('/steps').then((response) => {
-    const data = response.data as IStep[]
-    steps.value.push(...data)
-  }).catch((error) => {
-     throw error
-  })
-
+  await axiosBackendInstance
+    .get('/steps')
+    .then((response) => {
+      const data = response.data as IStep[]
+      steps.value.push(...data)
+    })
+    .catch((error) => {
+      throw error
+    })
 }
 
 await fetchSteps()

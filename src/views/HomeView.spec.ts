@@ -3,6 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import HomeViewfrom from './HomeView.vue'
 import HeroComp from '@/components/homeView/HeroComp.vue'
 import HowitworkComp from '@/components/homeView/howitwork/HowItWorkComp.vue'
+import TestimonialComp from '@/components/homeView/testimonial/TestimonialComp.vue'
 
 describe('ParentComponent.vue', () => {
   const wrapper = shallowMount(HomeViewfrom)
@@ -13,9 +14,12 @@ describe('ParentComponent.vue', () => {
   it('renders the HowitworkComp component', () => {
     expect(wrapper.findComponent(HowitworkComp).exists()).toBe(true)
   })
+  it('renders the TestimonialComp component', () => {
+    expect(wrapper.findComponent(TestimonialComp).exists()).toBe(true)
+  })
 
   it('renders the divider', () => {
     const dividers = wrapper.findAll('.is-divider')
-    expect(dividers.length).toBe(2)
+    expect(dividers.length).toBe(3)
   })
 })

@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import ErrorBoundary from '@/components/common/ErrorBoundary.vue'
 import StepsComp from './StepsComp.vue'
 import StepsSkeleton from './StepsSkeleton.vue'
 </script>
