@@ -2,11 +2,15 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { IChallenge } from '@/models/challenges'
 import { type INotification, NotificationType } from '@/models/notification'
+
 import { useNotificationStore } from '@/stores/notification'
+import { useFeedbackStore } from '@/stores/feedback'
+
 import { axiosJdoodleInstance } from '@/api/axios-instances'
 
 export const useEditorStore = defineStore('editor', () => {
   const notificationStore = useNotificationStore()
+  const feedbackStore = useFeedbackStore()
 
   const activeChallenge = ref<IChallenge | null>(null)
   const randomChallenges = ref<IChallenge[]>([])
@@ -85,6 +89,7 @@ export const useEditorStore = defineStore('editor', () => {
       type: type
     }
     notificationStore.addNotification(notification)
+    feedbackStore.setScore(result ? 10 : -5)
   }
 
   // Set tested challenge and update notification

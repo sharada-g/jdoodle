@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import ChallengesView from './ChallengesView.vue'
 import BeforeStartComp from '@/components/challanges/beforestart/BeforeStartComp.vue'
 import EditorComp from '@/components/challanges/inprogress/EditorComp.vue'
+import CompletedComp from '@/components/challanges/completed/CompletedComp.vue'
 import { ChallengeStage } from '@/models/challenges'
 
 describe('ChallengesView.vue', () => {
@@ -21,6 +22,7 @@ describe('ChallengesView.vue', () => {
     })
     expect(wrapper.findComponent(BeforeStartComp).exists()).toBe(true)
     expect(wrapper.findComponent(EditorComp).exists()).toBe(false)
+    expect(wrapper.findComponent(CompletedComp).exists()).toBe(false)
   })
 
   it('renders the EditorComp when challengeStage is InProgress', () => {
@@ -36,5 +38,6 @@ describe('ChallengesView.vue', () => {
     })
     expect(wrapper.findComponent(BeforeStartComp).exists()).toBe(false)
     expect(wrapper.findComponent(EditorComp).exists()).toBe(true)
+    expect(wrapper.findComponent(CompletedComp).exists()).toBe(false)
   })
 })

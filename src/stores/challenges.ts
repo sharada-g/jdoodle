@@ -1,13 +1,41 @@
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
-
-import { axiosBackendInstance } from '@/api/axios-instances'
 
 import { ChallengeStage, type IChallenge } from '@/models/challenges'
 
+import { type INotification, NotificationType } from '@/models/notification'
+import { useNotificationStore } from '@/stores/notification'
+
+import { useEditorStore } from '@/stores/editor'
+
+import { axiosBackendInstance } from '@/api/axios-instances'
+
 export const useChallengesStore = defineStore('challenges', () => {
+  // State
   const challenges = ref<IChallenge[]>([])
   const challengeStage = ref<ChallengeStage>(getChallengeStage())
+
+  // Other stores
+  const notificationStore = useNotificationStore()
+  const editorStore = useEditorStore()
+
+  // Computed property for checking if all challenges are completed
+  const allCompleted = computed(() => editorStore.randomChallenges.every((c) => c.tested))
+
+  // Watch for all challenges being completed and show notification
+  // then set the challenge stage to completed
+  watch(allCompleted, (completed) => {
+    if (completed) {
+      const notification: INotification = {
+        id: Date.now(),
+        title: 'All challenges completed',
+        message: 'You have completed all challenges. Congratulations!',
+        type: NotificationType.Warning
+      }
+      notificationStore.addNotification(notification)
+      setChallengeStage(ChallengeStage.Completed)
+    }
+  })
 
   // Get the challenge stage from local storage or set it to the default value
   function getChallengeStage(): ChallengeStage {

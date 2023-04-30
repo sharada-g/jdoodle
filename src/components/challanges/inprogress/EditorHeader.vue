@@ -5,7 +5,7 @@
       <span class="icon is-medium">
         <i class="fa fa-trophy" aria-hidden="true"></i>
       </span>
-      <span>{{ editorStore.progress }}</span>
+      <span>{{ feedbackStore.score }}</span>
     </div>
   </div>
   <progress class="progress" :value="editorStore.progress" max="100">
@@ -28,7 +28,10 @@
 
 <script setup lang="ts">
 import { useEditorStore } from '@/stores/editor'
+import { useFeedbackStore } from '@/stores/feedback'
+
 import DropdownMenu from '@/components/challanges/inprogress/DropdownMenu.vue'
 
 const editorStore = useEditorStore()
+const feedbackStore = useFeedbackStore()
 </script>

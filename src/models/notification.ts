@@ -1,7 +1,8 @@
 export enum NotificationType {
   Success = 'primary',
   Error = 'danger',
-  Warning = 'warning'
+  Warning = 'warning',
+  Info = 'info'
 }
 
 export interface INotification {
