@@ -23,9 +23,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 
-
 const reset = () => {
-    localStorage.clear()
-    location.reload()
+  localStorage.clear()
+  location.reload()
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="code-editor-wrapper">
-    <p v-for="line in editorStore.activeChallenge?.codeStart" :key="line"  >
+    <p v-for="line in editorStore.activeChallenge?.codeStart" :key="line">
       <code>{{ line }}</code>
     </p>
 
@@ -12,7 +12,7 @@
         v-model="answer"
       ></textarea>
     </div>
-    <p v-for="line in editorStore.activeChallenge?.codeEnd" :key="line" >
+    <p v-for="line in editorStore.activeChallenge?.codeEnd" :key="line">
       <code>{{ line }}</code>
     </p>
   </div>
@@ -47,5 +47,4 @@ watch(
   height: 100%;
   justify-content: center;
 }
-
 </style>

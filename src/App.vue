@@ -2,18 +2,18 @@
   <div class="container">
     <AppNavBar />
     <RouterView />
-     <AppFooter />
+    <AppFooter />
   </div>
-     <div v-if="notificationStore.notifications.length > 0" class="notification-container">
-      <NotificationComp
-        v-for="notification in notificationStore.notifications"
-        :key="notification.id"
-        :id="notification.id"
-        :type="notification.type"
-        :title="notification.title"
-        :message="notification.message"
-      />
-    </div>
+  <div v-if="notificationStore.notifications.length > 0" class="notification-container">
+    <NotificationComp
+      v-for="notification in notificationStore.notifications"
+      :key="notification.id"
+      :id="notification.id"
+      :type="notification.type"
+      :title="notification.title"
+      :message="notification.message"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">

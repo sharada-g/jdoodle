@@ -6,13 +6,6 @@ const ChildComponent = {
   template: '<div class="child-component">Child component content</div>'
 }
 
-const ErrorThrowingComponent = {
-  setup() {
-    throw new Error('Test error')
-  },
-  template: '<div>Error throwing component</div>'
-}
-
 describe('ErrorBoundary.vue', () => {
   it('renders child component when there is no error', () => {
     const wrapper = mount(ErrorBoundary, {
