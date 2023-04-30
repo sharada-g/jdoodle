@@ -6,7 +6,7 @@ import { type INotification, NotificationType } from '@/models/notification'
 import { useNotificationStore } from '@/stores/notification'
 import { useFeedbackStore } from '@/stores/feedback'
 
-import { axiosJdoodleInstance } from '@/api/axios-instances'
+import { axiosBackendInstance } from '@/api/axios-instances'
 
 export const useEditorStore = defineStore('editor', () => {
   const notificationStore = useNotificationStore()
@@ -138,7 +138,7 @@ export const useEditorStore = defineStore('editor', () => {
       clientSecret: import.meta.env.VITE_CLIENT_SECRET
     }
 
-    await axiosJdoodleInstance
+    await axiosBackendInstance
       .post('/execute', program)
       .then((response) => {
         if (response.data.output === 'true\n' && response.data.statusCode === 200) {

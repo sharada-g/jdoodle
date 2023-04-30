@@ -10,9 +10,4 @@ const axiosBackendInstance: AxiosInstance = axios.create({
   }
 })
 
-const axiosJdoodleInstance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_JDOODLE_API_URL,
-  timeout: 10000
-})
-
-export { axiosBackendInstance, axiosJdoodleInstance }
+export { axiosBackendInstance }
