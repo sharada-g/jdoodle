@@ -122,6 +122,17 @@ onMounted(() => {
   socketClient.value?.connect({}, onWsConnection, onWsConnectionFailed)
 })
 
+// debounce the function to prevent multiple calls
+function debounce(fn: (...args: any[]) => void, delay: number): (...args: any[]) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+  return (...args: any[]) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+    timeoutId = setTimeout(() => fn(...args), delay)
+  }
+}
+
 async function onRunOutput(preflight = false) {
   if (editorStore.activeChallenge?.tested) return
 
@@ -143,12 +154,14 @@ async function onRunOutput(preflight = false) {
   })
 }
 
+const debouncedOnRunOutput = debounce(onRunOutput, 1000)
+
 // If interactive mode is on, run the code on every change
 watch(
   () => editorStore.activeChallenge?.answer,
   () => {
     if (interactiveMode.value && consoleConnectionState.value === ConsoleConnectionEnum.CONNECTED)
-      onRunOutput()
+      debouncedOnRunOutput()
   }
 )
 
