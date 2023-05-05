@@ -26,6 +26,7 @@ export interface IChallenge {
   codeEnd: string[]
   testFunction: string[]
   testcase: ITestcase[]
+  output: string
   answer: string
   tested: boolean
 }

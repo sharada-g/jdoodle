@@ -13,6 +13,9 @@
         <EditorCorder />
       </div>
       <div class="tile is-child">
+        <EditorConsole />
+      </div>
+      <div class="tile is-child">
         <EditorTester />
       </div>
     </div>
@@ -25,6 +28,7 @@ import { onBeforeMount } from 'vue'
 import EditorHeader from './EditorHeader.vue'
 import EditorDescription from './EditorDescription.vue'
 import EditorCorder from './EditorCorder.vue'
+import EditorConsole from './EditorConsole.vue'
 import EditorTester from './EditorTester.vue'
 
 import { useEditorStore } from '@/stores/editor'

@@ -11,5 +11,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    proxy: {
+      '/v1/stomp': {
+        target: 'https://api.jdoodle.com',
+        changeOrigin: true,
+        ws: true
+      }
+    }
   }
 })

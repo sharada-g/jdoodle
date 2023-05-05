@@ -8,9 +8,12 @@ import { useFeedbackStore } from '@/stores/feedback'
 
 import { axiosBackendInstance } from '@/api/axios-instances'
 
+// Define the store
 export const useEditorStore = defineStore('editor', () => {
   const notificationStore = useNotificationStore()
   const feedbackStore = useFeedbackStore()
+
+  const token = ref<string | null>(null)
 
   const activeChallenge = ref<IChallenge | null>(null)
   const randomChallenges = ref<IChallenge[]>([])
@@ -21,6 +24,7 @@ export const useEditorStore = defineStore('editor', () => {
     const storedRandomChallenges = JSON.parse(localStorage.getItem('randomChallenges') || '[]')
     const storedActiveChallenge = JSON.parse(localStorage.getItem('activeChallenge') || '[]')
 
+    // If stored challenges exist, use them
     if (storedRandomChallenges.length > 0) {
       randomChallenges.value = storedRandomChallenges
       if (storedActiveChallenge.length == 0) {
@@ -29,6 +33,7 @@ export const useEditorStore = defineStore('editor', () => {
       return
     }
 
+    // Otherwise, generate new random challenges
     try {
       const challenges = JSON.parse(localStorage.getItem('challenges') || '[]')
       randomChallenges.value = challenges.sort(() => Math.random() - Math.random()).slice(0, 5)
@@ -81,7 +86,6 @@ export const useEditorStore = defineStore('editor', () => {
       activeChallenge.value.tested = result
       localStorage.setItem('activeChallenge', JSON.stringify(activeChallenge.value))
     }
-
     const notification: INotification = {
       id: Date.now(),
       title: message,
@@ -113,9 +117,22 @@ export const useEditorStore = defineStore('editor', () => {
     localStorage.setItem('randomChallenges', JSON.stringify(randomChallenges.value))
   }
 
-  // Run test for the active challenge and update the results using jdoodle api
-  // i am using proxy to avoid cors error in vite.config.ts
-  async function runTest() {
+  // Get token when jDoodle token expires
+  async function fetchToken() {
+    const data = {
+      clientId: import.meta.env.VITE_CLIENT_ID,
+      clientSecret: import.meta.env.VITE_CLIENT_SECRET
+    }
+
+    try {
+      const response = await axiosBackendInstance.post('/token', data)
+      token.value = response.data
+    } catch (error: string | any) {
+      throw new Error(error.message || 'Failed to get token')
+    }
+  }
+
+  function getScript() {
     const script: string =
       activeChallenge.value!.codeStart.join(' ') +
       ' ' +
@@ -129,6 +146,23 @@ export const useEditorStore = defineStore('editor', () => {
       ' ' +
       activeChallenge.value!.testcase[0].output +
       ' '
+
+    return script
+  }
+
+  function clearOutput() {
+    activeChallenge.value!.output = ''
+  }
+
+  function setOutput(output: string) {
+    activeChallenge.value!.output += output
+    localStorage.setItem('activeChallenge', JSON.stringify(activeChallenge.value))
+  }
+
+  // Run test for the active challenge and update the results using jdoodle api
+  // Use a proxy to avoid CORS error in vite.config.ts
+  async function runTest() {
+    const script = getScript()
 
     const program = {
       script: script,
@@ -153,6 +187,8 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   return {
+    token,
+    fetchToken,
     activeChallenge,
     getActiveChallenge,
     setActiveChallenge,
@@ -161,6 +197,9 @@ export const useEditorStore = defineStore('editor', () => {
     getRandomChallenges,
     progress,
     setActiveChallengeAnswer,
+    getScript,
+    clearOutput,
+    setOutput,
     runTest
   }
 })

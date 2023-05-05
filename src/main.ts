@@ -1,3 +1,5 @@
+import './global-polyfill.js'
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
